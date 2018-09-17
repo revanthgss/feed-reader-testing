@@ -89,23 +89,21 @@ $(function() {
     });
 
     describe('New feed Selection', function(){
-        let feed;
+        let oldfeed,newfeed;
         beforeEach(function(done){
-            loadFeed(1, function(){
-                done();
-            });
-            feed = $('.feed').children();
-            console.log(feed);
             loadFeed(0,function(){
-                done();
+                oldfeed = $('.feed').html();
+                loadFeed(1, function(){
+                    newfeed = $('.feed').html();
+                    done();
+                });
             });
         });
         /* A test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          */
         it('is working', function(done){
-            console.log($('.feed').children());
-            expect($('.feed').children()).not.toBe(feed);
+            expect(newfeed).not.toBe(oldfeed);
             done();
         });
     });
